@@ -1,4 +1,4 @@
-package com.example.sensorstracker
+    package com.example.sensorstracker
 
 import android.app.Application
 import com.example.sensorstracker.di.dataModule

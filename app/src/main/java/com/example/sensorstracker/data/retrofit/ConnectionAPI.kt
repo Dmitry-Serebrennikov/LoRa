@@ -1,6 +1,7 @@
 package com.example.sensorstracker.data.retrofit
 
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Body
@@ -14,9 +15,8 @@ interface ConnectionAPI {
     @GET("/check/{device_code}")
     fun checkPos(@Path("device_code") device_code: String?): Single<CoordsPOJO>
 
-    @POST("/register/{device_code}")
+    @POST("/api/register/")
     fun sendPos(
-        @Path("device_code") device_code: String,
-        @Body coords: CoordsPOJO
-    ): Single<String>
+        @Body code : Int,  lat : Float,   long: Float
+    ): Single<Response<ResponseMessage>>
 }
