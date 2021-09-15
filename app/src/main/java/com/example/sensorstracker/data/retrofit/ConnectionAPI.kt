@@ -9,14 +9,15 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ConnectionAPI {
-    @GET("/data/{device_code}")
+    @GET("data/{device_code}")
     fun getDeviceById(@Path("device_code") id : Int) : Single<SensorPOJO>
 
-    @GET("/check/{device_code}")
+    @GET("check/{device_code}")
     fun checkPos(@Path("device_code") device_code: String?): Single<CoordsPOJO>
 
-    @POST("/api/register/")
+    @POST("api/register/")
     fun sendPos(
-        @Body code : Int,  lat : Float,   long: Float
+        @Body body : AddSensorBody
+    //@Body code : Int, @Body lat : Float, @Body  long: Float
     ): Single<Response<ResponseMessage>>
 }

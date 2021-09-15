@@ -67,19 +67,16 @@ class AddSensorEngineerFragment(var onToolbarNavClick: IOnToolbarNavClick) : Bot
                     periodEditText.text.toString().toFloat(),
                     freqEditText.text.toString().toFloat()
                 )
-                mapViewModel.addSensor(
-                    Sensor(
-                        nameEditText.text.toString().toInt(),
-                        periodEditText.text.toString().toFloat(),
-                        freqEditText.text.toString().toFloat()
-                )
-                )
                 onToolbarNavClick.onToolbarNavClick()
             }
         }
 
         viewModel.responseLiveData.observe(viewLifecycleOwner){
-            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT ).show()
+            //Toast.makeText(activity, it.message, Toast.LENGTH_SHORT ).show()
+        }
+
+        viewModel.sensorLiveData.observe(viewLifecycleOwner){
+            mapViewModel.addSensor(it)
         }
 
         toolbar.children.forEach {

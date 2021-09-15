@@ -130,6 +130,14 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
+
+        viewModel.savedSensors.observe(viewLifecycleOwner){
+            for (sensor in it){
+                googleMap.addMarker(MarkerOptions().position(LatLng(sensor.lat.toDouble(), sensor.long.toDouble()))
+                    .title(sensor.code.toString()))
+            }
+        }
     }
+
 
 }
