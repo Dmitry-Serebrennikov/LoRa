@@ -1,5 +1,6 @@
 package com.example.sensorstracker.data.repository
 
+import android.util.Log
 import com.example.sensorstracker.data.database.SensorDatabase
 import com.example.sensorstracker.data.database.SensorEntity
 import com.example.sensorstracker.data.retrofit.*
@@ -18,31 +19,28 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
         return networkService.getConnectionAPI().getDeviceById(id).subscribeOn(Schedulers.io())
     }
 
-    fun registerSensor(code : Int, lat : Float, long : Float) : Single<Response<ResponseMessage>>{ // Int
-        //return networkService.getConnectionAPI().sendPos(AddSensorBody(code, lat, long)).subscribeOn(Schedulers.io())
+    fun getAllSensorIds() : Single<SensorIDsPOJO>{
+        return networkService.getConnectionAPI().getAllSensors().observeOn(Schedulers.io())
+    }
+
+    fun registerSensor(code : Int, lat : Float, long : Float) : Single<Response<ResponseMessage>>{
+        Log.d("SensorReg", "$code $lat $long")
         return networkService.getConnectionAPI().sendPos(AddSensorBody(code, lat, long)).subscribeOn(Schedulers.io())
     }
 
-    //fun addToMySensors(id : Int){
-    //val sensorEntity = SensorEntity(id)
     fun addToMySensors(sensor : Sensor){
         val sensorEntity = SensorEntity(sensor.code, sensor.lat, sensor.long)
         database.sensorDAO.insertAll(sensorEntity).subscribeOn(Schedulers.io()).observeOn(
             AndroidSchedulers.mainThread()).subscribe()
     }
 
-    //fun deleteFromMySensors(id : Int){
-    //val sensorEntity = SensorEntity(id)
     fun deleteFromMySensors(sensor : Sensor){
         val sensorEntity = SensorEntity(sensor.code, sensor.lat, sensor.long)
         database.sensorDAO.delete(sensorEntity).subscribeOn(Schedulers.io()).observeOn(
             AndroidSchedulers.mainThread()).subscribe()
     }
 
-    //fun getFavouritePokemonIds() : Single<List<SensorEntity>> {
-    //return database.sensorDAO.getAll().subscribeOn(Schedulers.io())
-    //}
-    fun getSensors() : Single<List<Sensor>> {
+    fun getSensors() : Observable<List<Sensor>> {
         return database.sensorDAO.getAll().subscribeOn(Schedulers.io()).map {
             val sensorList : MutableList<Sensor> = mutableListOf()
             for (i in it){
@@ -51,4 +49,6 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
             sensorList
         }
 
-    }}
+    }
+
+}

@@ -17,13 +17,11 @@ import kotlin.random.Random
 class AddSensorEngineerViewModel(val repository: Repository) : ViewModel(){
 
     val responseLiveData : MutableLiveData<ResponseMessage> = MutableLiveData()
-    val sensorLiveData : MutableLiveData<Sensor> = MutableLiveData()
 
     val compositeDisposable = CompositeDisposable()
     fun addSensor(code : Int, lat : Float, long : Float){ //Int
 
         repository.addToMySensors(Sensor(code, lat, long))
-        sensorLiveData.postValue(Sensor(code, lat, long))
 
         val disposable = repository.registerSensor(code, lat, long).observeOn(AndroidSchedulers.mainThread()).subscribe({
             responseLiveData.postValue(it.body())

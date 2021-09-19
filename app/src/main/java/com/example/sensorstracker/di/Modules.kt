@@ -7,6 +7,7 @@ import com.example.sensorstracker.data.retrofit.NetworkService
 import com.example.sensorstracker.ui.chooserole.ChooseViewModel
 import com.example.sensorstracker.ui.engeneer.addsensor.AddSensorEngineerViewModel
 import com.example.sensorstracker.ui.map.MapViewModel
+import com.example.sensorstracker.ui.mechanic.qrscan.QrScanViewModel
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -23,6 +24,7 @@ val viewModelsModule = module {
     viewModel { ChooseViewModel(get()) }
     viewModel { MapViewModel(get(), get()) }
     viewModel { AddSensorEngineerViewModel(get()) }
+    viewModel { QrScanViewModel(get(), get()) }
 
 }
 

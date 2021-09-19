@@ -12,7 +12,7 @@ import androidx.core.view.get
 import com.example.sensorstracker.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ChooseFragment : Fragment() {
+class ChooseFragment() : Fragment() {
 
     val viewModel : ChooseViewModel by viewModel()
 

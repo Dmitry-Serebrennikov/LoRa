@@ -11,3 +11,7 @@ data class SensorPOJO(
     val name : String,
     val groupID : Int
 )
+
+data class SensorIDsPOJO(
+    @SerializedName("value") val ids : List<Int>
+)

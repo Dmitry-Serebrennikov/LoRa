@@ -24,7 +24,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddSensorEngineerFragment(var onToolbarNavClick: IOnToolbarNavClick) : BottomSheetDialogFragment() {
     val viewModel : AddSensorEngineerViewModel by viewModel()
-    val mapViewModel : MapViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +72,6 @@ class AddSensorEngineerFragment(var onToolbarNavClick: IOnToolbarNavClick) : Bot
 
         viewModel.responseLiveData.observe(viewLifecycleOwner){
             //Toast.makeText(activity, it.message, Toast.LENGTH_SHORT ).show()
-        }
-
-        viewModel.sensorLiveData.observe(viewLifecycleOwner){
-            mapViewModel.addSensor(it)
         }
 
         toolbar.children.forEach {

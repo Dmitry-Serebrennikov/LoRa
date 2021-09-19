@@ -43,7 +43,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
-    val viewModel : MapViewModel by sharedViewModel()
+    val viewModel : MapViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,10 +118,6 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
         val ft = activity?.supportFragmentManager?.beginTransaction()
         ft?.replace(R.id.bottomContainer, addSensorEngineerFragment)
         ft?.commit()
-    }
-
-    fun addSensorsFromCamera(){
-
     }
 
     enum class Role{
