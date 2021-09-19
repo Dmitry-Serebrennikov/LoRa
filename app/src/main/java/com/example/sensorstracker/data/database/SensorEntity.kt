@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class SensorEntity (
     //@PrimaryKey val id:Int
     @PrimaryKey
-    val code:Int,
+    val code: Int,//Int
     val lat : Float,
     val longg : Float
     )

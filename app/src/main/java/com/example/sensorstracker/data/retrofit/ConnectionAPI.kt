@@ -15,7 +15,7 @@ interface ConnectionAPI {
     @GET("check/{device_code}")
     fun checkPos(@Path("device_code") device_code: String?): Single<CoordsPOJO>
 
-    @POST("api/register/")
+    @POST("api/sensor/register/")
     fun sendPos(
         @Body body : AddSensorBody
     //@Body code : Int, @Body lat : Float, @Body  long: Float

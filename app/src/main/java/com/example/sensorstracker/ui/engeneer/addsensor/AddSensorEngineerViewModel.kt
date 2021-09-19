@@ -1,4 +1,6 @@
 package com.example.sensorstracker.ui.engeneer.addsensor
+
+
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +20,7 @@ class AddSensorEngineerViewModel(val repository: Repository) : ViewModel(){
     val sensorLiveData : MutableLiveData<Sensor> = MutableLiveData()
 
     val compositeDisposable = CompositeDisposable()
-    fun addSensor(code : Int, lat : Float, long : Float){
+    fun addSensor(code : Int, lat : Float, long : Float){ //Int
 
         repository.addToMySensors(Sensor(code, lat, long))
         sensorLiveData.postValue(Sensor(code, lat, long))
@@ -56,20 +58,15 @@ import java.net.Socket
 import kotlin.concurrent.thread
 import kotlin.math.abs
 import kotlin.random.Random
-
 class AddSensorEngineerViewModel(val repository: Repository) : ViewModel(){
-
     val responseLiveData : MutableLiveData<ResponseMessage> = MutableLiveData()
     val sensorLiveData : MutableLiveData<Sensor> = MutableLiveData()
     val compositeDisposable = CompositeDisposable()
     fun addSensor(code : Int, lat : Float, long : Float){
-
         val response = ResponseMessage("Successfully registered")
-
         //thread(start = true) {
             //Thread.sleep(abs(Random.nextLong()%5 * 1000))
             //responseLiveData.postValue(response)
-
         //}
         Log.d("ResponseCode", "TryToADD")
         val disposable = repository.registerSensor(code, lat, long).observeOn(AndroidSchedulers.mainThread()).subscribe({
@@ -82,7 +79,6 @@ class AddSensorEngineerViewModel(val repository: Repository) : ViewModel(){
         },{})
         compositeDisposable.add(disposable)
     }
-
     override fun onCleared() {
         compositeDisposable.dispose()
         super.onCleared()

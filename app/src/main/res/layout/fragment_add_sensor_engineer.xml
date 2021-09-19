@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
+
         <EditText
             android:id="@+id/sensor_name_et"
             android:layout_width="200dp"

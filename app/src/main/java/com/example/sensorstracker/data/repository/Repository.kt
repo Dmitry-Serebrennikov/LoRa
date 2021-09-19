@@ -18,13 +18,13 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
         return networkService.getConnectionAPI().getDeviceById(id).subscribeOn(Schedulers.io())
     }
 
-    fun registerSensor(code : Int, lat : Float, long : Float) : Single<Response<ResponseMessage>>{
+    fun registerSensor(code : Int, lat : Float, long : Float) : Single<Response<ResponseMessage>>{ // Int
         //return networkService.getConnectionAPI().sendPos(AddSensorBody(code, lat, long)).subscribeOn(Schedulers.io())
         return networkService.getConnectionAPI().sendPos(AddSensorBody(code, lat, long)).subscribeOn(Schedulers.io())
     }
 
     //fun addToMySensors(id : Int){
-        //val sensorEntity = SensorEntity(id)
+    //val sensorEntity = SensorEntity(id)
     fun addToMySensors(sensor : Sensor){
         val sensorEntity = SensorEntity(sensor.code, sensor.lat, sensor.long)
         database.sensorDAO.insertAll(sensorEntity).subscribeOn(Schedulers.io()).observeOn(
@@ -32,7 +32,7 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
     }
 
     //fun deleteFromMySensors(id : Int){
-        //val sensorEntity = SensorEntity(id)
+    //val sensorEntity = SensorEntity(id)
     fun deleteFromMySensors(sensor : Sensor){
         val sensorEntity = SensorEntity(sensor.code, sensor.lat, sensor.long)
         database.sensorDAO.delete(sensorEntity).subscribeOn(Schedulers.io()).observeOn(
@@ -40,7 +40,7 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
     }
 
     //fun getFavouritePokemonIds() : Single<List<SensorEntity>> {
-        //return database.sensorDAO.getAll().subscribeOn(Schedulers.io())
+    //return database.sensorDAO.getAll().subscribeOn(Schedulers.io())
     //}
     fun getSensors() : Single<List<Sensor>> {
         return database.sensorDAO.getAll().subscribeOn(Schedulers.io()).map {
@@ -51,4 +51,4 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
             sensorList
         }
 
-}}
+    }}
