@@ -13,47 +13,27 @@
         >
 
         <EditText
-            android:id="@+id/sensor_name_et"
+            android:id="@+id/sensor_freq_et"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="48dp"
-            android:hint="Code"
+            android:hint="Freq"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/sensor_type_et"
+        <Spinner
+            android:id="@+id/sensor_type_spinner"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:hint="Type"
+            style="@style/SpinnerChoose"
+            android:entries="@array/types_of_sensors"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sensor_name_et" />
-
-        <EditText
-            android:id="@+id/sensor_period_et"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:hint="lat"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sensor_type_et" />
-
-        <EditText
-            android:id="@+id/sensor_freq_et"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:hint="long"
-            android:inputType="number"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sensor_period_et" />
+            app:layout_constraintTop_toBottomOf="@+id/sensor_freq_et" />
 
         <Button
             android:id="@+id/add_sensor_button"
@@ -64,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.824"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sensor_freq_et"
+            app:layout_constraintTop_toBottomOf="@+id/sensor_type_spinner"
             app:layout_constraintVertical_bias="0.243" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

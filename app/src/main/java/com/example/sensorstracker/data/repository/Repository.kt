@@ -15,13 +15,6 @@ import io.reactivex.Completable.concat
 import io.reactivex.Observable
 
 class Repository(val networkService: NetworkService, val database: SensorDatabase) {
-    fun searchSensorById(id : Int) : Single<SensorPOJO>{
-        return networkService.getConnectionAPI().getDeviceById(id).subscribeOn(Schedulers.io())
-    }
-
-    fun getAllSensorIds() : Single<SensorIDsPOJO>{
-        return networkService.getConnectionAPI().getAllSensors().observeOn(Schedulers.io())
-    }
 
     fun registerSensor(code : Int, lat : Float, long : Float) : Single<Response<ResponseMessage>>{
         Log.d("SensorReg", "$code $lat $long")
@@ -40,15 +33,19 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
             AndroidSchedulers.mainThread()).subscribe()
     }
 
-    fun getSensors() : Observable<List<Sensor>> {
-        return database.sensorDAO.getAll().subscribeOn(Schedulers.io()).map {
+    fun getSensors() : Single<List<Sensor>> {
+        return networkService.getConnectionAPI().getAllDevices().map {
             val sensorList : MutableList<Sensor> = mutableListOf()
-            for (i in it){
-                sensorList.add(Sensor(i.code, i.lat, i.longg))
+            for (i in it.sensors){
+                sensorList.add(Sensor(i.code.toInt(), i.latitude, i.longitude))
             }
-            sensorList
-        }
-
+            sensorList.toList()
+        }.subscribeOn(Schedulers.io())
     }
 
+    fun createSensor(type : String, freq : Float) : Single<SensorCreateResponse>{
+        return networkService.getConnectionAPI().createSensor(
+            createSensorBody(type, freq)
+        ).subscribeOn(Schedulers.io())
+    }
 }

@@ -3,15 +3,13 @@ package com.example.sensorstracker.data.retrofit
 import com.google.gson.annotations.SerializedName
 
 data class SensorPOJO(
-    val type : String,
-    val param : Double,
-    val latitude : Double,
-    val longitude : Double,
-    val id : Int,
-    val name : String,
-    val groupID : Int
+    @SerializedName("id") val id : Int,
+    @SerializedName("code") val code : String,
+    @SerializedName("latitude") val latitude : Float,
+    @SerializedName("longitude") val longitude : Float,
+    @SerializedName("freq") val freq : Float
 )
 
-data class SensorIDsPOJO(
-    @SerializedName("value") val ids : List<Int>
+data class MultipleSensorsPOJO(
+    @SerializedName("data") val sensors : List<SensorPOJO>
 )

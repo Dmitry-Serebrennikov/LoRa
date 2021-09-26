@@ -103,9 +103,6 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
                 viewModel.goToQrScan()
             }
         }
-        viewModel.scannersLiveData.observe(viewLifecycleOwner){
-            googleMap.addMarker(MarkerOptions().position(LatLng(it.lat.toDouble(), it.long.toDouble())))
-        }
 
     }
 
@@ -128,9 +125,11 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
         googleMap = p0
 
         viewModel.savedSensors.observe(viewLifecycleOwner){
+            googleMap.clear()
             for (sensor in it){
-                googleMap.addMarker(MarkerOptions().position(LatLng(sensor.lat.toDouble(), sensor.long.toDouble()))
-                    .title(sensor.code.toString()))
+                googleMap.addMarker(MarkerOptions().title(sensor.code.toString()).position(
+                    LatLng(sensor.lat.toDouble(), sensor.long.toDouble())
+                ))
             }
         }
     }

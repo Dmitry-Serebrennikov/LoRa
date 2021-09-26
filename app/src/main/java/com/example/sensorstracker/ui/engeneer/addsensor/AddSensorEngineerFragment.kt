@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.children
@@ -38,9 +35,8 @@ class AddSensorEngineerFragment(var onToolbarNavClick: IOnToolbarNavClick) : Bot
 
     lateinit var toolbar : Toolbar
     lateinit var addSensorButton: Button
-    lateinit var periodEditText: EditText
     lateinit var freqEditText: EditText
-    lateinit var nameEditText: EditText
+    lateinit var typeSpinner: Spinner
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,28 +47,23 @@ class AddSensorEngineerFragment(var onToolbarNavClick: IOnToolbarNavClick) : Bot
         toolbar.setNavigationOnClickListener {
             onToolbarNavClick.onToolbarNavClick()
         }
-
-        periodEditText = view.findViewById(R.id.sensor_period_et)
-        nameEditText = view.findViewById(R.id.sensor_name_et)
         freqEditText = view.findViewById(R.id.sensor_freq_et)
         addSensorButton = view.findViewById(R.id.add_sensor_button)
-
+        typeSpinner = view.findViewById(R.id.sensor_type_spinner)
         addSensorButton.setOnClickListener {
-            if (nameEditText.text.toString().isNotEmpty() && periodEditText.text.toString()
-                    .isNotEmpty() && periodEditText.text.toString().isNotEmpty()
-            ) {
+            if (freqEditText.text.toString().isNotEmpty()) {
                 viewModel.addSensor(
-                    nameEditText.text.toString().toInt(),
-                    periodEditText.text.toString().toFloat(),
-                    freqEditText.text.toString().toFloat()
+                    freqEditText.text.toString().toFloat(),
+                    (typeSpinner.selectedItemPosition+1).toString()
                 )
                 onToolbarNavClick.onToolbarNavClick()
             }
         }
 
         viewModel.responseLiveData.observe(viewLifecycleOwner){
-            //Toast.makeText(activity, it.message, Toast.LENGTH_SHORT ).show()
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT ).show()
         }
+
 
         toolbar.children.forEach {
             (it as? AppCompatImageButton)?.imageTintList =

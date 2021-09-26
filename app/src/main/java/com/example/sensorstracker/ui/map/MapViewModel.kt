@@ -8,6 +8,8 @@ import com.example.sensorstracker.data.repository.Repository
 import com.example.sensorstracker.data.retrofit.SensorPOJO
 import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import kotlin.concurrent.thread
 
 class MapViewModel(
     val router: Router, val repository: Repository
@@ -28,9 +30,25 @@ class MapViewModel(
         getSavedSensors()
     }
 
+   //val compositeDisposable : CompositeDisposable = CompositeDisposable()
+
     fun getSavedSensors(){
         val disposable = repository.getSensors().observeOn(AndroidSchedulers.mainThread()).subscribe({
             savedSensors.postValue(it)
         },{})
+    /*
+
+        thread {
+            while (true){
+                val disposable = repository.getSensors().observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    savedSensors.postValue(it)
+                },{})
+
+                //compositeDisposable.add(disposable)
+                Thread.sleep(2000)
+            }
+        }.start()
+
+         */
     }
 }
