@@ -13,6 +13,7 @@ import com.example.sensorstracker.data.model.Sensor
 import com.example.sensorstracker.data.retrofit.*
 import io.reactivex.Completable.concat
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 
 class Repository(val networkService: NetworkService, val database: SensorDatabase) {
 
@@ -33,8 +34,10 @@ class Repository(val networkService: NetworkService, val database: SensorDatabas
             AndroidSchedulers.mainThread()).subscribe()
     }
 
-    fun getSensors() : Single<List<Sensor>> {
-        return networkService.getConnectionAPI().getAllDevices().map {
+    fun getSensors() : Flowable<List<Sensor>> {
+        return networkService.getConnectionAPI().getAllDevices().repeatWhen {
+            Flowable.timer(2, TimeUnit.SECONDS).repeat()
+        }.map {
             val sensorList : MutableList<Sensor> = mutableListOf()
             for (i in it.sensors){
                 sensorList.add(Sensor(i.code.toInt(), i.latitude, i.longitude))

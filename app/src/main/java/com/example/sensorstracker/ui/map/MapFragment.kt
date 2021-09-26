@@ -35,6 +35,8 @@ import android.graphics.Canvas
 import androidx.core.content.ContextCompat
 
 import android.graphics.drawable.Drawable
+import android.widget.Toast
+import com.example.sensorstracker.ui.mechanic.qrscan.QrScanViewModel
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.SupportMapFragment
 
@@ -44,6 +46,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
     val viewModel : MapViewModel by viewModel()
+    val qrViewModel : QrScanViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +106,9 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
                 viewModel.goToQrScan()
             }
         }
-
+        qrViewModel.responseLiveData.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(),it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun showAddSensorsBottomSheet(){
