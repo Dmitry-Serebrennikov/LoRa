@@ -15,7 +15,6 @@ interface SensorDAO {
     @Delete
     fun delete(sensor: SensorEntity) : Single<Int>
 
-    //@Query("SELECT count(*)!=0 FROM sensorentity WHERE id = :id")
     @Query("SELECT count(*)!=0 FROM sensorentity WHERE code = :id")
     fun containsId(id: Int): Single<Boolean>
 }

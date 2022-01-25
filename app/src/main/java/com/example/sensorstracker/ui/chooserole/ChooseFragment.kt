@@ -30,7 +30,6 @@ class ChooseFragment() : Fragment() {
     lateinit var chooseRoleSpinner : Spinner
     lateinit var chooseRoleButton: Button
 
-
     val rolesList : MutableList<String> = mutableListOf("Engineer", "Mechanic")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,8 +47,5 @@ class ChooseFragment() : Fragment() {
                 1 -> viewModel.chooseMechanic()
             }
         }
-
-
-
     }
 }

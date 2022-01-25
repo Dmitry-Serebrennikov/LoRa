@@ -106,9 +106,11 @@ class MapFragment(val role: Role) : Fragment(), OnMapReadyCallback{
                 viewModel.goToQrScan()
             }
         }
+        /*
         qrViewModel.responseLiveData.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(),it, Toast.LENGTH_SHORT).show()
         }
+         */
     }
 
     fun showAddSensorsBottomSheet(){
